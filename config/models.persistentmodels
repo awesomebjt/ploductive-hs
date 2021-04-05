@@ -16,4 +16,13 @@ Email
 --     userId UserId Maybe
 --     deriving Eq
 --     deriving Show
+Task json
+    description Text
+    begin Day
+    end Day Maybe
+    repeatPattern String
+    deriving Show
+DoneTask json
+    taskId TaskId Maybe
+    date Day
     deriving Show
