@@ -5,6 +5,7 @@ A task tracker for getting things done with persistence.
 Ploductive gets its name from Douglas Wilson's book *Ploductivity*, about the necessity of hard, monotonous work over a long period of time in order to achieve a significant goal. It is a To Do list but with a little something more added to encourage consistent performance over a period of time. You can set tasks that repeat daily, and get reports on your streaks of continuous accomplishment. It is only by persistence that we accomplish our high, hard goals.
 
 > Nothing in this world can take the place of persistence. Talent will not: nothing is more common than unsuccessful men with talent. Genius will not; unrewarded genius is almost a proverb. Education will not: the world is full of educated derelicts. Persistence and determination alone are omnipotent.
+-- Calvin Coolidge
 
 ## Haskell Setup
 
