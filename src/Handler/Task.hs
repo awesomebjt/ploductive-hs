@@ -24,34 +24,31 @@ data FileForm = FileForm
 -- inclined, or create a single monolithic file.
 getTaskR :: Handler Html
 getTaskR = do
-    (formWidget, formEnctype) <- generateFormPost sampleForm
+    (formWidget, formEnctype) <- generateFormPost taskForm
     let submission = Nothing :: Maybe FileForm
         handlerName = "getTaskR" :: Text
-    allComments <- runDB $ getAllComments
+    allTasks <- runDB $ getAllTasks
 
     defaultLayout $ do
-        let (commentFormId, commentTextareaId, commentListId) = commentIds
         aDomId <- newIdent
-        setTitle "Welcome To Yesod!"
+        setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
 postTaskR :: Handler Html
 postTaskR = do
-    ((result, formWidget), formEnctype) <- runFormPost sampleForm
+    ((result, formWidget), formEnctype) <- runFormPost taskForm
     let handlerName = "postTaskR" :: Text
         submission = case result of
             FormSuccess res -> Just res
             _ -> Nothing
-    allComments <- runDB $ getAllComments
 
     defaultLayout $ do
-        let (commentFormId, commentTextareaId, commentListId) = commentIds
         aDomId <- newIdent
-        setTitle "Welcome To Yesod!"
+        setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
-sampleForm :: Form FileForm
-sampleForm = renderBootstrap3 BootstrapBasicForm $ FileForm
+taskForm :: Form FileForm
+taskForm = renderBootstrap3 BootstrapBasicForm $ FileForm
     <$> fileAFormReq "Choose a file"
     <*> areq textField textSettings Nothing
     -- Add attributes like the placeholder and CSS classes.
@@ -66,8 +63,5 @@ sampleForm = renderBootstrap3 BootstrapBasicForm $ FileForm
                 ]
             }
 
-commentIds :: (Text, Text, Text)
-commentIds = ("js-commentForm", "js-createCommentTextarea", "js-commentList")
-
-getAllComments :: DB [Entity Comment]
-getAllComments = selectList [] [Asc CommentId]
+getAllTasks :: DB [Entity Task]
+getAllTasks = selectList [] [Asc TaskId]
