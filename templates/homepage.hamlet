@@ -2,11 +2,11 @@
     <div .container>
         <div .row>
             <h1 .header>
-                Yesod—a modern framework for blazing fast websites
+                Ploductive
             <h2>
-                Fast, stable & spiced with great community
-            <a href="http://www.yesodweb.com/book/" .btn.btn-info.btn-lg>
-                Read the Book
+                A task tracker for consistent performance.
+            <a href="/tasks" .btn.btn-info.btn-lg>
+                Get Started
 
 <div .container>
     <!-- Starting

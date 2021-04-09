@@ -9,6 +9,8 @@
 
 / HomeR GET POST
 
+/tasks TaskR GET POST
+
 /comments CommentR POST
 
 /profile ProfileR GET
