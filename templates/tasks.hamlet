@@ -4,6 +4,10 @@
             <h1 .header>
                 Tasks
 <div .container>
+    <ul .list-group>
+        <li .list-group-item .active>Task one <input .form-check-input type="checkbox">
+        <li .list-group-item>Task two
+<div .container>
     <!-- Forms
         ================================================== -->
     <div .bs-docs-section>
