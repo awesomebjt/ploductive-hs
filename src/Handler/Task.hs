@@ -32,6 +32,10 @@ getTaskR = do
     defaultLayout $ do
         aDomId <- newIdent
         setTitle "Ploductive: Tasks"
+        addStylesheetRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+    
         $(widgetFile "tasks")
 
 postTaskR :: Handler Html
