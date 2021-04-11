@@ -3,8 +3,10 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeFamilies #-}
-module Handler.Home where
+{-# LANGUAGE QuasiQuotes #-}
 
+module Handler.Home where
+import Yesod
 import Import
 import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
 import Text.Julius (RawJS (..))
@@ -22,18 +24,16 @@ data FileForm = FileForm
 -- The majority of the code you will write in Yesod lives in these handler
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
-getHomeR :: Handler Html
-getHomeR = do
-    (formWidget, formEnctype) <- generateFormPost sampleForm
-    let submission = Nothing :: Maybe FileForm
-        handlerName = "getHomeR" :: Text
-    allComments <- runDB $ getAllComments
-
-    defaultLayout $ do
-        let (commentFormId, commentTextareaId, commentListId) = commentIds
-        aDomId <- newIdent
-        setTitle "Welcome To Ploductive!"
-        $(widgetFile "homepage")
+getHomeR :: Handler TypedContent
+getHomeR = selectRep $ do
+    provideRep $ return
+        [shamlet|
+            <p>#{message}
+        |]
+    provideRep $ return $ object
+        ["msg" .= message]
+    where
+        message = "This is the home page" :: Text
 
 postHomeR :: Handler Html
 postHomeR = do
