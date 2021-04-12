@@ -27,9 +27,7 @@ data FileForm = FileForm
 getHomeR :: Handler TypedContent
 getHomeR = selectRep $ do
     provideRep $ return
-        [shamlet|
-            <p>#{message}
-        |]
+        $ renderHtml $ $(hamletFile "homepage.hamlet") render
     provideRep $ return $ object
         ["msg" .= message]
     where
