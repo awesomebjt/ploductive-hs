@@ -26,8 +26,7 @@ data FileForm = FileForm
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler TypedContent
 getHomeR = selectRep $ do
-    provideRep $ return
-        $ renderHtml $ $(hamletFile "homepage.hamlet") render
+    provideRep $ defaultLayout $(widgetFile "trunchome")
     provideRep $ return $ object
         ["msg" .= message]
     where
