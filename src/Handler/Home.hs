@@ -26,7 +26,11 @@ data FileForm = FileForm
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler TypedContent
 getHomeR = selectRep $ do
-    provideRep $ defaultLayout $(widgetFile "trunchome")
+    let handlerName = "getHomeR" :: Text
+    provideRep $ defaultLayout $ do
+        domId <- newIdent
+        setTitle "Whoa"
+        $(widgetFile "trunchome")
     provideRep $ return $ object
         ["msg" .= message]
     where
