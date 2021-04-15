@@ -25,16 +25,21 @@ data FileForm = FileForm
 -- functions. You can spread them across multiple files if you are so
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler TypedContent
-getHomeR = selectRep $ do
-    let handlerName = "getHomeR" :: Text
-    provideRep $ defaultLayout $ do
-        domId <- newIdent
-        setTitle "Whoa"
-        $(widgetFile "trunchome")
-    provideRep $ return $ object
-        ["msg" .= message]
-    where
-        message = "This is the home page" :: Text
+getHomeR = do
+    (formWidget, formEnctype) <- generateFormPost sampleForm
+    allComments <- runDB getAllComments
+    selectRep $ do
+        let handlerName = "getHomeR" :: Text
+        let (commentFormId, commentTextareaId, commentListId) = commentIds
+        let submission = Nothing :: Maybe FileForm
+        provideRep $ defaultLayout $ do
+            aDomId <- newIdent
+            setTitle "Welcome to Ploductive"
+            $(widgetFile "homepage")
+        provideRep $ return $ object
+            ["msg" .= message]
+        where
+            message = "This is the home page" :: Text
 
 postHomeR :: Handler Html
 postHomeR = do
