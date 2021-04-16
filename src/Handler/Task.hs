@@ -51,6 +51,26 @@ postTaskR = do
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
+patchTaskR :: Handler Html
+patchTaskR = do
+    defaultLayout $ do
+        $(widgetFile "tasks")
+
+deleteTaskR :: Handler Html
+deleteTaskR = do
+    defaultLayout $ do
+        $(widgetFile "tasks")
+
+getTaskByIdR :: Handler Html
+getTaskByIdR = do
+    defaultLayout $ do
+        $(widgetFile "tasks")
+    
+getTaskByDayR :: Handler Html
+getTaskByDayR = do
+    defaultLayout $ do
+        $(widgetFile "tasks")
+
 taskForm :: Form FileForm
 taskForm = renderBootstrap3 BootstrapBasicForm $ FileForm
     <$> fileAFormReq "Choose a file"
