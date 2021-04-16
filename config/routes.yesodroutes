@@ -9,7 +9,9 @@
 
 / HomeR GET POST
 
-/tasks TaskR GET POST
+/tasks TaskR GET POST PATCH DELETE
+/tasks/#Day TaskR GET
+/tasks/#TaskId TaskR GET
 
 /comments CommentR POST
 
