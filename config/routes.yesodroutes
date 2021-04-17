@@ -10,8 +10,8 @@
 / HomeR GET POST
 
 /tasks TaskR GET POST PATCH DELETE
-/tasks/#Day TaskR GET
-/tasks/#TaskId TaskR GET
+/tasks/day/#Day TaskByDayR GET
+/tasks/#TaskId TaskByIdR GET
 
 /comments CommentR POST
 

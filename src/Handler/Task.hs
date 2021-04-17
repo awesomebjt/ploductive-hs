@@ -61,13 +61,15 @@ deleteTaskR = do
     defaultLayout $ do
         $(widgetFile "tasks")
 
-getTaskByIdR :: Handler Html
-getTaskByIdR = do
+getTaskByIdR :: Key Task -> Handler Html
+getTaskByIdR taskId = do
+    let handlerName = "getTaskByIdR" :: Text
     defaultLayout $ do
         $(widgetFile "tasks")
     
-getTaskByDayR :: Handler Html
-getTaskByDayR = do
+getTaskByDayR :: Day -> Handler Html
+getTaskByDayR day = do
+    let handlerName = "getTaskByDayR" :: Text
     defaultLayout $ do
         $(widgetFile "tasks")
 
