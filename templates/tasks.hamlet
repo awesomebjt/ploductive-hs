@@ -1,9 +1,8 @@
-<div .masthead>
-    <div .container>
-        <div .row>
-            <h1 .header>
-                Tasks
+<div .container>
+    <div .row>
+        <h1>
+            Tasks
 <div .container>
     <ul .list-group>
-        <li .list-group-item .active>Task one <input .form-check-input type="checkbox">
-        <li .list-group-item>Task two
+        $forall task <- allTasks
+        <li>#{taskDescription $ entityVal task}

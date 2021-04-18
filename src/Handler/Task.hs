@@ -32,9 +32,9 @@ getTaskR = do
     defaultLayout $ do
         aDomId <- newIdent
         setTitle "Ploductive: Tasks"
-        addStylesheetRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+--        addStylesheetRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+--        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+--        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
     
         $(widgetFile "tasks")
 
@@ -45,6 +45,7 @@ postTaskR = do
         submission = case result of
             FormSuccess res -> Just res
             _ -> Nothing
+    allTasks <- runDB $ getAllTasks
 
     defaultLayout $ do
         aDomId <- newIdent
@@ -53,24 +54,38 @@ postTaskR = do
 
 patchTaskR :: Handler Html
 patchTaskR = do
+    let handlerName = "patchTaskR" :: Text 
+    allTasks <- runDB $ getAllTasks
     defaultLayout $ do
+        aDomId <- newIdent
+        setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
 deleteTaskR :: Handler Html
 deleteTaskR = do
+    let handlerName = "deleteTaskR" :: Text
+    allTasks <- runDB $ getAllTasks
     defaultLayout $ do
+        aDomId <- newIdent
+        setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
 getTaskByIdR :: Key Task -> Handler Html
 getTaskByIdR taskId = do
     let handlerName = "getTaskByIdR" :: Text
+    allTasks <- runDB $ getAllTasks
     defaultLayout $ do
+        aDomId <- newIdent
+        setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
     
 getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
     let handlerName = "getTaskByDayR" :: Text
+    allTasks <- runDB $ getAllTasks
     defaultLayout $ do
+        aDomId <- newIdent
+        setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
 taskForm :: Form FileForm
