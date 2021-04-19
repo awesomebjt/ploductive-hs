@@ -5,4 +5,4 @@
 <div .container>
     <ul .list-group>
         $forall task <- allTasks
-        <li>#{taskDescription $ entityVal task}
+          <li>#{taskDescription $ entityVal task}
