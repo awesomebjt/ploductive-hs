@@ -27,7 +27,7 @@ getTaskR = do
     (formWidget, formEnctype) <- generateFormPost taskForm
     let submission = Nothing :: Maybe FileForm
         handlerName = "getTaskR" :: Text
-    allTasks <- runDB $ getAllTasks
+    allTasks <- runDB getAllTasks
 
     defaultLayout $ do
         aDomId <- newIdent
@@ -45,7 +45,7 @@ postTaskR = do
         submission = case result of
             FormSuccess res -> Just res
             _ -> Nothing
-    allTasks <- runDB $ getAllTasks
+    allTasks <- runDB getAllTasks
 
     defaultLayout $ do
         aDomId <- newIdent
@@ -55,7 +55,7 @@ postTaskR = do
 patchTaskR :: Handler Html
 patchTaskR = do
     let handlerName = "patchTaskR" :: Text 
-    allTasks <- runDB $ getAllTasks
+    allTasks <- runDB getAllTasks
     defaultLayout $ do
         aDomId <- newIdent
         setTitle "Ploductive: Tasks"
@@ -64,7 +64,7 @@ patchTaskR = do
 deleteTaskR :: Handler Html
 deleteTaskR = do
     let handlerName = "deleteTaskR" :: Text
-    allTasks <- runDB $ getAllTasks
+    allTasks <- runDB getAllTasks
     defaultLayout $ do
         aDomId <- newIdent
         setTitle "Ploductive: Tasks"
@@ -73,7 +73,7 @@ deleteTaskR = do
 getTaskByIdR :: Key Task -> Handler Html
 getTaskByIdR taskId = do
     let handlerName = "getTaskByIdR" :: Text
-    allTasks <- runDB $ getAllTasks
+    allTasks <- runDB getAllTasks
     defaultLayout $ do
         aDomId <- newIdent
         setTitle "Ploductive: Tasks"
@@ -82,7 +82,7 @@ getTaskByIdR taskId = do
 getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
     let handlerName = "getTaskByDayR" :: Text
-    allTasks <- runDB $ getAllTasks
+    allTasks <- runDB getAllTasks
     defaultLayout $ do
         aDomId <- newIdent
         setTitle "Ploductive: Tasks"
