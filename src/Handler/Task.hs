@@ -25,8 +25,7 @@ data FileForm = FileForm
 getTaskR :: Handler Html
 getTaskR = do
     (formWidget, formEnctype) <- generateFormPost taskForm
-    let submission = Nothing :: Maybe FileForm
-        handlerName = "getTaskR" :: Text
+    let handlerName = "getTaskR" :: Text
     allTasks <- runDB getAllTasks
 
     defaultLayout $ do
@@ -88,21 +87,12 @@ getTaskByDayR day = do
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
-taskForm :: Form FileForm
-taskForm = renderBootstrap3 BootstrapBasicForm $ FileForm
-    <$> fileAFormReq "Choose a file"
-    <*> areq textField textSettings Nothing
-    -- Add attributes like the placeholder and CSS classes.
-    where textSettings = FieldSettings
-            { fsLabel = "What's on the file?"
-            , fsTooltip = Nothing
-            , fsId = Nothing
-            , fsName = Nothing
-            , fsAttrs =
-                [ ("class", "form-control")
-                , ("placeholder", "File description")
-                ]
-            }
+taskForm :: Form Task
+taskForm = renderBootstrap3 BootstrapBasicForm $ Task
+    <$> areq textField "Description" Nothing
+    -- <*> areq textField "Start" Nothing
+    -- <*> areq textField "End" Nothing
+    -- <*> areq textField "RepeatPattern" Nothing
 
 getAllTasks :: DB [Entity Task]
 getAllTasks = selectList [] [Asc TaskId]

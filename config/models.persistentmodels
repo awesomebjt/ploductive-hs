@@ -18,9 +18,9 @@ Comment json -- Adding "json" causes ToJSON and FromJSON instances to be derived
     deriving Show
 Task json
     description Text
-    begin Day
-    end Day Maybe
-    repeatPattern String
+--    begin Day
+--    end Day Maybe
+--    repeatPattern String
     deriving Show
 DoneTask json
     taskId TaskId Maybe

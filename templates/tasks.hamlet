@@ -6,3 +6,7 @@
     <ul .list-group>
         $forall task <- allTasks
           <li>#{taskDescription $ entityVal task}
+    <form method=post action=@{TaskR} enctype=#{formEnctype}>
+                ^{formWidget}
+                <p>It also doesn't include the submit button.
+                <button>Submit
