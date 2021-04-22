@@ -8,5 +8,4 @@
           <li>#{taskDescription $ entityVal task}
     <form method=post action=@{TaskR} enctype=#{formEnctype}>
                 ^{formWidget}
-                <p>It also doesn't include the submit button.
-                <button>Submit
+                <button .btn.btn-primary type=submit>Submit

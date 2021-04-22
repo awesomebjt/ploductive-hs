@@ -53,6 +53,7 @@ postTaskR = do
 
 patchTaskR :: Handler Html
 patchTaskR = do
+    ((result, formWidget), formEnctype) <- runFormPost taskForm
     let handlerName = "patchTaskR" :: Text 
     allTasks <- runDB getAllTasks
     defaultLayout $ do
@@ -62,6 +63,7 @@ patchTaskR = do
 
 deleteTaskR :: Handler Html
 deleteTaskR = do
+    ((result, formWidget), formEnctype) <- runFormPost taskForm
     let handlerName = "deleteTaskR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
@@ -71,6 +73,7 @@ deleteTaskR = do
 
 getTaskByIdR :: Key Task -> Handler Html
 getTaskByIdR taskId = do
+    ((result, formWidget), formEnctype) <- runFormPost taskForm
     let handlerName = "getTaskByIdR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
@@ -80,6 +83,7 @@ getTaskByIdR taskId = do
     
 getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
+    ((result, formWidget), formEnctype) <- runFormPost taskForm
     let handlerName = "getTaskByDayR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
@@ -88,7 +92,7 @@ getTaskByDayR day = do
         $(widgetFile "tasks")
 
 taskForm :: Form Task
-taskForm = renderBootstrap3 BootstrapBasicForm $ Task
+taskForm = renderDivs $ Task
     <$> areq textField "Description" Nothing
     -- <*> areq textField "Start" Nothing
     -- <*> areq textField "End" Nothing
