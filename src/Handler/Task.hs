@@ -40,11 +40,13 @@ postTaskR :: Handler Html
 postTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
     let handlerName = "postTaskR" :: Text
-        submission = case result of
-            FormSuccess res -> Just res
-            _ -> Nothing
-    allTasks <- runDB getAllTasks
-
+        allTasksw = case result of
+            FormSuccess task -> do
+                taskId <- runDB $ insert $ task
+                runDB getAllTasks
+            _ -> do
+                runDB getAllTasks
+    allTasks <- allTasksw
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
