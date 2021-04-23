@@ -29,7 +29,6 @@ getTaskR = do
     allTasks <- runDB getAllTasks
 
     defaultLayout $ do
-        aDomId <- newIdent
         setTitle "Ploductive: Tasks"
 --        addStylesheetRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 --        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
@@ -47,7 +46,6 @@ postTaskR = do
     allTasks <- runDB getAllTasks
 
     defaultLayout $ do
-        aDomId <- newIdent
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
@@ -57,7 +55,6 @@ patchTaskR = do
     let handlerName = "patchTaskR" :: Text 
     allTasks <- runDB getAllTasks
     defaultLayout $ do
-        aDomId <- newIdent
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
@@ -67,7 +64,6 @@ deleteTaskR = do
     let handlerName = "deleteTaskR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
-        aDomId <- newIdent
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
@@ -77,7 +73,6 @@ getTaskByIdR taskId = do
     let handlerName = "getTaskByIdR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
-        aDomId <- newIdent
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
     
@@ -87,7 +82,6 @@ getTaskByDayR day = do
     let handlerName = "getTaskByDayR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
-        aDomId <- newIdent
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
 
