@@ -88,7 +88,7 @@ getTaskByDayR day = do
         $(widgetFile "tasks")
 
 taskForm :: Form Task
-taskForm = renderDivs $ Task
+taskForm = renderBootstrap3 BootstrapBasicForm $ Task
     <$> areq textField "Description" Nothing
     -- <*> areq textField "Start" Nothing
     -- <*> areq textField "End" Nothing

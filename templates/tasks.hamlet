@@ -3,9 +3,12 @@
         <h1>
             Tasks
 <div .container>
-    <ul .list-group>
         $forall task <- allTasks
-          <li>#{taskDescription $ entityVal task}
+          <div .input-group .mb-3>
+            <div .input-group-prepend>
+              <div .input-group-text>
+                <input type=checkbox  aria-label="Checkbox for following text input"> <input type=text .form-control value="#{taskDescription $ entityVal task}" aria-label="Text input with checkbox">
+
     <form method=post action=@{TaskR} enctype=#{formEnctype}>
                 ^{formWidget}
                 <button .btn.btn-primary type=submit>Submit
