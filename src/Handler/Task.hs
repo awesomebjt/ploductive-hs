@@ -33,7 +33,7 @@ getTaskR = do
 --        addStylesheetRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 --        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 --        addScriptRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
-    
+
         $(widgetFile "tasks")
 
 postTaskR :: Handler Html
@@ -54,7 +54,7 @@ postTaskR = do
 patchTaskR :: Handler Html
 patchTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
-    let handlerName = "patchTaskR" :: Text 
+    let handlerName = "patchTaskR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
@@ -77,7 +77,7 @@ getTaskByIdR taskId = do
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
-    
+
 getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
@@ -90,9 +90,9 @@ getTaskByDayR day = do
 taskForm :: Form Task
 taskForm = renderBootstrap3 BootstrapBasicForm $ Task
     <$> areq textField "Description" Nothing
-    -- <*> areq textField "Start" Nothing
-    -- <*> areq textField "End" Nothing
-    -- <*> areq textField "RepeatPattern" Nothing
+    <*> areq dayField "Start" Nothing
+    <*> aopt dayField "End" Nothing
+    <*> areq textField "RepeatPattern" Nothing
 
 getAllTasks :: DB [Entity Task]
 getAllTasks = selectList [] [Asc TaskId]
