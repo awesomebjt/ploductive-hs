@@ -26,12 +26,12 @@ data FileForm = FileForm
 -- inclined, or create a single monolithic file.
 getHomeR :: Handler TypedContent
 getHomeR = do
-    (formWidget, formEnctype) <- generateFormPost sampleForm
-    allComments <- runDB getAllComments
+    -- (formWidget, formEnctype) <- generateFormPost sampleForm
+    -- allComments <- runDB getAllComments
     selectRep $ do
         let handlerName = "getHomeR" :: Text
-        let (commentFormId, commentTextareaId, commentListId) = commentIds
-        let submission = Nothing :: Maybe FileForm
+        -- let (commentFormId, commentTextareaId, commentListId) = commentIds
+        -- let submission = Nothing :: Maybe FileForm
         provideRep $ defaultLayout $ do
             aDomId <- newIdent
             setTitle "Welcome to Ploductive"
@@ -41,39 +41,24 @@ getHomeR = do
         where
             message = "This is the home page" :: Text
 
-postHomeR :: Handler Html
-postHomeR = do
-    ((result, formWidget), formEnctype) <- runFormPost sampleForm
-    let handlerName = "postHomeR" :: Text
-        submission = case result of
-            FormSuccess res -> Just res
-            _ -> Nothing
-    allComments <- runDB $ getAllComments
+-- sampleForm :: Form FileForm
+-- sampleForm = renderBootstrap3 BootstrapBasicForm $ FileForm
+--     <$> fileAFormReq "Choose a file"
+--     <*> areq textField textSettings Nothing
+--     -- Add attributes like the placeholder and CSS classes.
+--     where textSettings = FieldSettings
+--             { fsLabel = "What's on the file?"
+--             , fsTooltip = Nothing
+--             , fsId = Nothing
+--             , fsName = Nothing
+--             , fsAttrs =
+--                 [ ("class", "form-control")
+--                 , ("placeholder", "File description")
+--                 ]
+--             }
 
-    defaultLayout $ do
-        let (commentFormId, commentTextareaId, commentListId) = commentIds
-        aDomId <- newIdent
-        setTitle "Welcome To Ploductive!"
-        $(widgetFile "homepage")
-
-sampleForm :: Form FileForm
-sampleForm = renderBootstrap3 BootstrapBasicForm $ FileForm
-    <$> fileAFormReq "Choose a file"
-    <*> areq textField textSettings Nothing
-    -- Add attributes like the placeholder and CSS classes.
-    where textSettings = FieldSettings
-            { fsLabel = "What's on the file?"
-            , fsTooltip = Nothing
-            , fsId = Nothing
-            , fsName = Nothing
-            , fsAttrs =
-                [ ("class", "form-control")
-                , ("placeholder", "File description")
-                ]
-            }
-
-commentIds :: (Text, Text, Text)
-commentIds = ("js-commentForm", "js-createCommentTextarea", "js-commentList")
-
-getAllComments :: DB [Entity Comment]
-getAllComments = selectList [] [Asc CommentId]
+-- commentIds :: (Text, Text, Text)
+-- commentIds = ("js-commentForm", "js-createCommentTextarea", "js-commentList")
+--
+-- getAllComments :: DB [Entity Comment]
+-- getAllComments = selectList [] [Asc CommentId]
