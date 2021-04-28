@@ -1,4 +1,4 @@
-## Ploductive
+## Get Ploductive!
 
 Ploductive will be a To-Do list web application you can visit online, or
 host yourself. It is written in Haskell's Yesod framework, and includes two
