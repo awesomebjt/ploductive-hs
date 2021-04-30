@@ -14,6 +14,9 @@
       $forall task <- allTasks
         <tr>
           <th scope="col">#{taskDescription $ entityVal task}
+          <th scope="col">#{show $ taskBegin $ entityVal task}
+          <th scope="col">
+          <th scope="col">#{taskRepeatPattern $ entityVal task}
 
 
   <div .container>
