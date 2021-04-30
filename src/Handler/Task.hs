@@ -8,6 +8,7 @@ module Handler.Task where
 import Import
 import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
 import Text.Julius (RawJS (..))
+import Data.Maybe (fromJust)
 
 getTaskR :: Handler Html
 getTaskR = do
@@ -83,3 +84,8 @@ taskForm = renderBootstrap3 BootstrapBasicForm $ Task
 
 getAllTasks :: DB [Entity Task]
 getAllTasks = selectList [] [Asc TaskId]
+
+showTaskDay :: Maybe Day -> [Char]
+showTaskDay d
+  | isJust d = show $ fromJust d
+  | otherwise = ""

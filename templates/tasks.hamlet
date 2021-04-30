@@ -15,7 +15,7 @@
         <tr>
           <th scope="col">#{taskDescription $ entityVal task}
           <th scope="col">#{show $ taskBegin $ entityVal task}
-          <th scope="col">
+          <th scope="col">#{showTaskDay $ taskEnd $ entityVal task}
           <th scope="col">#{taskRepeatPattern $ entityVal task}
 
 
