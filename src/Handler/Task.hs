@@ -6,8 +6,8 @@
 module Handler.Task where
 
 import Import
-import Yesod.Form.Bootstrap3 (BootstrapFormLayout (..), renderBootstrap3)
-import Text.Julius (RawJS (..))
+import Yesod.Form.Bootstrap3 (BootstrapGridOptions (..), BootstrapFormLayout (..), renderBootstrap3)
+--import Text.Julius (RawJS (..))
 import Data.Maybe (fromJust)
 
 getTaskR :: Handler Html
@@ -76,7 +76,7 @@ getTaskByDayR day = do
         $(widgetFile "tasks")
 
 taskForm :: Form Task
-taskForm = renderBootstrap3 BootstrapBasicForm $ Task
+taskForm = renderBootstrap3 (BootstrapHorizontalForm (ColSm 1) (ColSm 1) (ColSm 1) (ColSm 1)) $ Task
     <$> areq textField "Description" Nothing
     <*> areq dayField "Start" Nothing
     <*> aopt dayField "End" Nothing

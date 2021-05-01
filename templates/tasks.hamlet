@@ -20,6 +20,6 @@
 
 
   <div .container>
-    <form method=post action=@{TaskR} enctype=#{formEnctype}>
+    <form .form-horizontal method=post action=@{TaskR} enctype=#{formEnctype}>
                 ^{formWidget}
                 <button .btn.btn-primary type=submit>Submit
