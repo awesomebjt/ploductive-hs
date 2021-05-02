@@ -42,7 +42,7 @@ postTaskR = do
 patchTaskR :: Handler Html
 patchTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
-    let handlerName = "patchTaskR" :: Text
+    --let handlerName = "patchTaskR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
@@ -51,7 +51,7 @@ patchTaskR = do
 deleteTaskR :: Handler Html
 deleteTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
-    let handlerName = "deleteTaskR" :: Text
+    --let handlerName = "deleteTaskR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
@@ -60,7 +60,7 @@ deleteTaskR = do
 getTaskByIdR :: Key Task -> Handler Html
 getTaskByIdR taskId = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
-    let handlerName = "getTaskByIdR" :: Text
+    --let handlerName = "getTaskByIdR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
@@ -69,7 +69,7 @@ getTaskByIdR taskId = do
 getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
-    let handlerName = "getTaskByDayR" :: Text
+    --let handlerName = "getTaskByDayR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
         setTitle "Ploductive: Tasks"

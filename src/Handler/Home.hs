@@ -29,7 +29,7 @@ getHomeR = do
     -- (formWidget, formEnctype) <- generateFormPost sampleForm
     -- allComments <- runDB getAllComments
     selectRep $ do
-        let handlerName = "getHomeR" :: Text
+        --let handlerName = "getHomeR" :: Text
         -- let (commentFormId, commentTextareaId, commentListId) = commentIds
         -- let submission = Nothing :: Maybe FileForm
         provideRep $ defaultLayout $ do
