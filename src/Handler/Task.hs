@@ -70,10 +70,10 @@ getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
     --let handlerName = "getTaskByDayR" :: Text
-    allTasks <- runDB getAllTasks
+    allTasks <- runDB $ selectList [TaskBegin >=. day] [Asc TaskId]
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
-        $(widgetFile "tasks")
+        $(widgetFile "tasksbyday")
 
 taskForm :: Form Task
 taskForm = renderBootstrap3 (BootstrapHorizontalForm (ColSm 1) (ColSm 1) (ColSm 1) (ColSm 1)) $ Task
@@ -84,6 +84,9 @@ taskForm = renderBootstrap3 (BootstrapHorizontalForm (ColSm 1) (ColSm 1) (ColSm 
 
 getAllTasks :: DB [Entity Task]
 getAllTasks = selectList [] [Asc TaskId]
+
+--getTasksByDay :: Day -> DB [Entity Task]
+--getTasksByDay d = selectList [TaskBeginDay >=. d, TaskEndDay <=. d] [Asc TaskId]
 
 showTaskDay :: Maybe Day -> [Char]
 showTaskDay d

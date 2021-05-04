@@ -11,6 +11,6 @@
 
 /tasks TaskR GET POST PATCH DELETE
 /tasks/day/#Day TaskByDayR GET
-/tasks/#TaskId TaskByIdR GET
+/tasks/id/#TaskId TaskByIdR GET
 
 /profile ProfileR GET
