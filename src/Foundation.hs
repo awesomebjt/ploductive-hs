@@ -175,6 +175,8 @@ instance Yesod App where
     -- delegate to that function
     isAuthorized ProfileR _ = isAuthenticated
     isAuthorized TaskR _ = isAuthenticated
+    isAuthorized (TaskByDayR _) _ = isAuthenticated
+    isAuthorized (TaskByIdR _) _ = isAuthenticated
 
     -- This function creates static content files in the static folder
     -- and names them based on a hash of their content. This allows
