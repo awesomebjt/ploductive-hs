@@ -13,7 +13,7 @@ import Data.Maybe (fromJust)
 getTaskR :: Handler Html
 getTaskR = do
     (formWidget, formEnctype) <- generateFormPost taskForm
-    let handlerName = "getTaskR" :: Text
+    -- let handlerName = "getTaskR" :: Text
     allTasks <- runDB getAllTasks
 
     defaultLayout $ do
@@ -27,7 +27,7 @@ getTaskR = do
 postTaskR :: Handler Html
 postTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
-    let handlerName = "postTaskR" :: Text
+    -- let handlerName = "postTaskR" :: Text
         allTasksw = case result of
             FormSuccess task -> do
                 taskId <- runDB $ insert $ task
