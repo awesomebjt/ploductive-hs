@@ -28,9 +28,10 @@ postTaskR :: Handler Html
 postTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
     -- let handlerName = "postTaskR" :: Text
-        allTasksw = case result of
+    let allTasksw = case result of
             FormSuccess task -> do
                 taskId <- runDB $ insert $ task
+                print taskId
                 runDB getAllTasks
             _ -> do
                 runDB getAllTasks
@@ -42,6 +43,7 @@ postTaskR = do
 patchTaskR :: Handler Html
 patchTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
+    print result
     --let handlerName = "patchTaskR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
@@ -51,6 +53,7 @@ patchTaskR = do
 deleteTaskR :: Handler Html
 deleteTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
+    print result
     --let handlerName = "deleteTaskR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
@@ -59,16 +62,16 @@ deleteTaskR = do
 
 getTaskByIdR :: Key Task -> Handler Html
 getTaskByIdR taskId = do
-    ((result, formWidget), formEnctype) <- runFormPost taskForm
     --let handlerName = "getTaskByIdR" :: Text
-    allTasks <- runDB getAllTasks
+    allTasks <- runDB $ selectList [TaskId ==. taskId] [Asc TaskId]
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
-        $(widgetFile "tasks")
+        $(widgetFile "tasksbyid")
 
 getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
+    print result
     --let handlerName = "getTaskByDayR" :: Text
     allTasks <- runDB $ selectList [TaskBegin >=. day] [Asc TaskId]
     defaultLayout $ do

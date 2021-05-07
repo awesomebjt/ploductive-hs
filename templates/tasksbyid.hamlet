@@ -1,0 +1,22 @@
+<div .container>
+    <div .row>
+        <h1>
+            Task #{show taskId}
+<div .container>
+  <form .form-basic method=get action="/tasks/day">
+    <input type=date>
+    <button .btn.btn-primary type=submit>Go
+  <table .table>
+    <thead>
+      <tr>
+        <th>Description
+        <th>Begin Date
+        <th>End Date
+        <th>Repeat Pattern
+    <tbody>
+      $forall task <- allTasks
+        <tr>
+          <th scope="col">#{taskDescription $ entityVal task}
+          <th scope="col">#{show $ taskBegin $ entityVal task}
+          <th scope="col">#{showTaskDay $ taskEnd $ entityVal task}
+          <th scope="col">#{taskRepeatPattern $ entityVal task}
