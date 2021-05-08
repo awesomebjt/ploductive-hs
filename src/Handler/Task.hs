@@ -10,12 +10,17 @@ import Yesod.Form.Bootstrap3 (BootstrapGridOptions (..), BootstrapFormLayout (..
 --import Text.Julius (RawJS (..))
 import Data.Maybe (fromJust)
 
+import Data.Time.Clock ()
+import Data.Time.Calendar ()
+import Data.Time.LocalTime ( LocalTime(localDay) )
+
 getTaskR :: Handler Html
 getTaskR = do
     (formWidget, formEnctype) <- generateFormPost taskForm
     -- let handlerName = "getTaskR" :: Text
     allTasks <- runDB getAllTasks
-
+    (year, month, day) <- getCurrentDate
+    let today = show year ++ show month ++ show day
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
 --        addStylesheetRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -36,6 +41,8 @@ postTaskR = do
             _ -> do
                 runDB getAllTasks
     allTasks <- allTasksw
+    (year, month, day) <- getCurrentDate
+    let today = show year ++ show month ++ show day
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
@@ -46,6 +53,8 @@ patchTaskR = do
     print result
     --let handlerName = "patchTaskR" :: Text
     allTasks <- runDB getAllTasks
+    (year, month, day) <- getCurrentDate
+    let today = show year ++ show month ++ show day
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasks")
@@ -54,6 +63,8 @@ deleteTaskR :: Handler Html
 deleteTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
     print result
+    (year, month, day) <- getCurrentDate
+    let today = show year ++ show month ++ show day
     --let handlerName = "deleteTaskR" :: Text
     allTasks <- runDB getAllTasks
     defaultLayout $ do
@@ -95,3 +106,7 @@ showTaskDay :: Maybe Day -> [Char]
 showTaskDay d
   | isJust d = show $ fromJust d
   | otherwise = ""
+
+
+getCurrentDate :: IO (Integer,Int,Int) -- :: (year,month,day)
+getCurrentDate = getCurrentTime >>= return . toGregorian . localDay

@@ -1,7 +1,7 @@
 <div .container>
     <div .row>
         <h1>
-            Tasks
+            Tasks #{today}
 <div .container>
   <form .form-basic method=get action="/tasks/day" enctype="#{formEnctype}">
     <input type=date>
