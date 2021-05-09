@@ -12,14 +12,14 @@ import Data.Maybe (fromJust)
 
 import Data.Time.Clock ()
 import Data.Time.Calendar ()
-import Data.Time.LocalTime ( LocalTime(localDay) )
+--import Data.Time.LocalTime ( LocalTime(localDay) )
 
 getTaskR :: Handler Html
 getTaskR = do
     (formWidget, formEnctype) <- generateFormPost taskForm
     -- let handlerName = "getTaskR" :: Text
     allTasks <- runDB getAllTasks
-    (year, month, day) <- getCurrentDate
+    (year, month, day) <- liftIO getCurrentDate
     let today = show year ++ show month ++ show day
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
@@ -41,7 +41,7 @@ postTaskR = do
             _ -> do
                 runDB getAllTasks
     allTasks <- allTasksw
-    (year, month, day) <- getCurrentDate
+    (year, month, day) <- liftIO getCurrentDate
     let today = show year ++ show month ++ show day
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
@@ -53,7 +53,7 @@ patchTaskR = do
     print result
     --let handlerName = "patchTaskR" :: Text
     allTasks <- runDB getAllTasks
-    (year, month, day) <- getCurrentDate
+    (year, month, day) <- liftIO getCurrentDate
     let today = show year ++ show month ++ show day
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
@@ -63,7 +63,7 @@ deleteTaskR :: Handler Html
 deleteTaskR = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
     print result
-    (year, month, day) <- getCurrentDate
+    (year, month, day) <- liftIO getCurrentDate
     let today = show year ++ show month ++ show day
     --let handlerName = "deleteTaskR" :: Text
     allTasks <- runDB getAllTasks
@@ -109,4 +109,4 @@ showTaskDay d
 
 
 getCurrentDate :: IO (Integer,Int,Int) -- :: (year,month,day)
-getCurrentDate = getCurrentTime >>= return . toGregorian . localDay
+getCurrentDate = getCurrentTime >>= return . toGregorian . utctDay
