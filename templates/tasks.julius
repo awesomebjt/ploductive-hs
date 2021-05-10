@@ -1,0 +1,3 @@
+function goToSelectedDay() {
+    location.href = "/tasks/day/"+document.getElementById("datepicker").value;
+};
