@@ -4,7 +4,7 @@
             Tasks #{today}
 <div .container>
   <input #datepicker type=date>
-  <a #datebutton .btn.btn-primary onclick="goToSelectedDay();">Go
+  <a #datebutton .btn.btn-primary onclick="goToSelectedDay();">Go to Date
   <table .table>
     <thead>
       <tr>
