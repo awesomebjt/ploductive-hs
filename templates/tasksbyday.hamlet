@@ -3,9 +3,8 @@
         <h1>
             Tasks
 <div .container>
-  <form .form-basic method=get action="/tasks/day" enctype="#{formEnctype}">
-    <input type=date>
-    <button .btn.btn-primary type=submit>Go
+  <input #datepicker type=date>
+  <a #datebutton .btn.btn-primary onclick="goToSelectedDay();">Go to Date
   <table .table>
     <thead>
       <tr>
