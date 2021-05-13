@@ -19,6 +19,7 @@ getTaskR = do
     (formWidget, formEnctype) <- generateFormPost taskForm
     -- let handlerName = "getTaskR" :: Text
     allTasks <- runDB getAllTasks
+    print allTasks
     (year, month, day) <- liftIO getCurrentDate
     let today = show year ++ show month ++ show day
     defaultLayout $ do
@@ -84,7 +85,7 @@ getTaskByDayR day = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
     print result
     --let handlerName = "getTaskByDayR" :: Text
-    allTasks <- runDB $ selectList [TaskBegin >=. day] [Asc TaskId]
+    allTasks <- runDB $ selectList [TaskBegin <=. day, TaskEnd >=. Just day] [Asc TaskId]
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasksbyday")
@@ -110,3 +111,8 @@ showTaskDay d
 
 getCurrentDate :: IO (Integer,Int,Int) -- :: (year,month,day)
 getCurrentDate = getCurrentTime >>= return . toGregorian . utctDay
+
+-- dayOrToday :: Maybe Day -> Day
+-- dayOrToday d
+--   | isJust d = fromJust d
+--   | otherwise = Day ()
