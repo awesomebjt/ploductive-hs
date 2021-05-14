@@ -13,6 +13,8 @@ import Data.Maybe (fromJust)
 import Data.Time.Clock ()
 import Data.Time.Calendar ()
 --import Data.Time.LocalTime ( LocalTime(localDay) )
+import Data.Time.Calendar.WeekDate
+
 
 getTaskR :: Handler Html
 getTaskR = do
@@ -22,6 +24,8 @@ getTaskR = do
     print allTasks
     (year, month, day) <- liftIO getCurrentDate
     let today = show year ++ show month ++ show day
+    let wday = getWeekDate year month day
+    print $ numToDayOfWeek wday
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
 --        addStylesheetRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -112,6 +116,21 @@ showTaskDay d
 getCurrentDate :: IO (Integer,Int,Int) -- :: (year,month,day)
 getCurrentDate = getCurrentTime >>= return . toGregorian . utctDay
 
+getWeekDate :: Integer -> Int -> Int -> Int
+getWeekDate y m d = third (toWeekDate $ fromGregorian y m d)
+
+third :: (a,b,c) -> c
+third (_, _, x) = x
+
+numToDayOfWeek :: Int -> String
+numToDayOfWeek n
+  | n==0 = "Sunday"
+  | n==1 = "Monday"
+  | n==2 = "Tuesday"
+  | n==3 = "Wednesday"
+  | n==4 = "Thursday"
+  | n==5 = "Friday"
+  | n==6 = "Saturday"
 -- dayOrToday :: Maybe Day -> Day
 -- dayOrToday d
 --   | isJust d = fromJust d
