@@ -18,10 +18,10 @@ getTaskR :: Handler Html
 getTaskR = do
     (formWidget, formEnctype) <- generateFormPost taskForm
     -- let handlerName = "getTaskR" :: Text
-    allTasks <- runDB getAllTasks
+    allTasks <- runDB getDefaultTasks
     print allTasks
     (year, month, day) <- liftIO getCurrentDate
-    let today = show year ++ show month ++ show day
+    let today = show $ fromGregorian year month day
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
 --        addStylesheetRemote "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -100,6 +100,11 @@ taskForm = renderBootstrap3 (BootstrapHorizontalForm (ColSm 1) (ColSm 1) (ColSm 
 getAllTasks :: DB [Entity Task]
 getAllTasks = selectList [] [Asc TaskId]
 
+getDefaultTasks :: DB [Entity Task]
+getDefaultTasks = do
+    d <- liftIO getCurrentDay
+    selectList [TaskEnd >=. Just d] [Asc TaskId]
+
 --getTasksByDay :: Day -> DB [Entity Task]
 --getTasksByDay d = selectList [TaskBeginDay >=. d, TaskEndDay <=. d] [Asc TaskId]
 
@@ -111,6 +116,9 @@ showTaskDay d
 
 getCurrentDate :: IO (Integer,Int,Int) -- :: (year,month,day)
 getCurrentDate = getCurrentTime >>= return . toGregorian . utctDay
+
+getCurrentDay :: IO Day
+getCurrentDay = getCurrentTime >>= return . utctDay
 
 -- dayOrToday :: Maybe Day -> Day
 -- dayOrToday d
