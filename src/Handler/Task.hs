@@ -13,8 +13,8 @@ import Data.Maybe (fromJust)
 import Data.Time.Clock ()
 import Data.Time.Calendar ()
 --import Data.Time.LocalTime ( LocalTime(localDay) )
-import Data.Time.Calendar.WeekDate
-
+import Data.Time.Calendar.WeekDate ( toWeekDate )
+import Data.Time.Calendar (addDays)
 
 getTaskR :: Handler Html
 getTaskR = do
@@ -88,6 +88,8 @@ getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
     print result
+    let nextDay = addDays 1 day
+    let prevDay = addDays (-1) day
     --let handlerName = "getTaskByDayR" :: Text
     allTasks <- runDB $ selectList [TaskBegin <=. day, TaskEnd >=. Just day] [Asc TaskId]
     defaultLayout $ do
