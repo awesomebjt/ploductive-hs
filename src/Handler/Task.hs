@@ -111,9 +111,6 @@ getDefaultTasks = do
     d <- liftIO getCurrentDay
     selectList [TaskEnd >=. Just d] [Asc TaskId]
 
---getTasksByDay :: Day -> DB [Entity Task]
---getTasksByDay d = selectList [TaskBeginDay >=. d, TaskEndDay <=. d] [Asc TaskId]
-
 showTaskDay :: Maybe Day -> [Char]
 showTaskDay d
   | isJust d = show $ fromJust d
