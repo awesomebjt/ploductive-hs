@@ -115,16 +115,16 @@ getWeekDate y m d = third (toWeekDate $ fromGregorian y m d)
 third :: (a,b,c) -> c
 third (_, _, x) = x
 
-numToDayOfWeek :: Int -> String
+numToDayOfWeek :: Int -> Maybe Char
 numToDayOfWeek n
-  | n==0 = "Sunday"
-  | n==1 = "Monday"
-  | n==2 = "Tuesday"
-  | n==3 = "Wednesday"
-  | n==4 = "Thursday"
-  | n==5 = "Friday"
-  | n==6 = "Saturday"
--- dayOrToday :: Maybe Day -> Day
--- dayOrToday d
---   | isJust d = fromJust d
---   | otherwise = Day ()
+  | n==0 = Just 'S'
+  | n==1 = Just 'M'
+  | n==2 = Just 'T'
+  | n==3 = Just 'W'
+  | n==4 = Just 'H'
+  | n==5 = Just 'F'
+  | n==6 = Just 'A'
+  | otherwise = Nothing
+
+weekdayInPattern :: Int -> String -> Bool
+weekdayInPattern d p = elem (fromJust $ numToDayOfWeek d) p
