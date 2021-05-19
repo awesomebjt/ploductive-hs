@@ -1,5 +1,4 @@
-function goToSelectedDay() {
-    let chosenDate = document.getElementById("datepicker").value;
+function goToSelectedDay(chosenDate) {
     if ((new Date(chosenDate) !== "Invalid Date") && !isNaN(new Date(chosenDate)))
     {
         location.href = "/tasks/day/"+chosenDate;

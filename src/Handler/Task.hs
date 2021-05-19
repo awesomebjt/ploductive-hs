@@ -13,17 +13,17 @@ import Data.Maybe (fromJust)
 import Data.Time.Clock ()
 import Data.Time.Calendar ()
 --import Data.Time.LocalTime ( LocalTime(localDay) )
-import Data.Time.Calendar.WeekDate
-
+import Data.Time.Calendar.WeekDate ( toWeekDate )
+import Data.Time.Calendar (addDays)
 
 getTaskR :: Handler Html
 getTaskR = do
     (formWidget, formEnctype) <- generateFormPost taskForm
     -- let handlerName = "getTaskR" :: Text
-    allTasks <- runDB getAllTasks
+    allTasks <- runDB getDefaultTasks
     print allTasks
     (year, month, day) <- liftIO getCurrentDate
-    let today = show year ++ show month ++ show day
+    let today = show $ fromGregorian year month day
     let wday = getWeekDate year month day
     print $ numToDayOfWeek wday
     defaultLayout $ do
@@ -84,6 +84,8 @@ getTaskByDayR :: Day -> Handler Html
 getTaskByDayR day = do
     ((result, formWidget), formEnctype) <- runFormPost taskForm
     print result
+    let nextDay = addDays 1 day
+    let prevDay = addDays (-1) day
     --let handlerName = "getTaskByDayR" :: Text
     allTasks <- runDB $ selectList [TaskBegin <=. day, TaskEnd >=. Just day] [Asc TaskId]
     defaultLayout $ do
@@ -100,6 +102,11 @@ taskForm = renderBootstrap3 (BootstrapHorizontalForm (ColSm 1) (ColSm 1) (ColSm 
 getAllTasks :: DB [Entity Task]
 getAllTasks = selectList [] [Asc TaskId]
 
+getDefaultTasks :: DB [Entity Task]
+getDefaultTasks = do
+    d <- liftIO getCurrentDay
+    selectList [TaskEnd >=. Just d] [Asc TaskId]
+
 showTaskDay :: Maybe Day -> [Char]
 showTaskDay d
   | isJust d = show $ fromJust d
@@ -108,6 +115,9 @@ showTaskDay d
 
 getCurrentDate :: IO (Integer,Int,Int) -- :: (year,month,day)
 getCurrentDate = getCurrentTime >>= return . toGregorian . utctDay
+
+getCurrentDay :: IO Day
+getCurrentDay = getCurrentTime >>= return . utctDay
 
 getWeekDate :: Integer -> Int -> Int -> Int
 getWeekDate y m d = third (toWeekDate $ fromGregorian y m d)

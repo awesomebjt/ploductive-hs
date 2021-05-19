@@ -4,7 +4,12 @@
             Tasks
 <div .container>
   <input #datepicker type=date>
-  <a #datebutton .btn.btn-primary onclick="goToSelectedDay();">Go to Date
+  <a #datebutton .btn.btn-primary onclick="goToSelectedDay(document.getElementById('datepicker').value);">Go to Date
+  <div .row>
+    <h3>
+      <a type="button" .btn.btn-primary onclick="goToSelectedDay('#{show prevDay}');"><
+      <strong>#{show day}
+      <a type="button" .btn.btn-primary onclick="goToSelectedDay('#{show nextDay}');">>
   <table .table>
     <thead>
       <tr>
