@@ -86,6 +86,7 @@ getTaskByDayR day = do
     print result
     let nextDay = addDays 1 day
     let prevDay = addDays (-1) day
+    let weekdayOfDay = fromJust $ numToDayOfWeek $ third $ toGregorian day
     --let handlerName = "getTaskByDayR" :: Text
     allTasks <- runDB $ selectList [TaskBegin <=. day, TaskEnd >=. Just day] [Asc TaskId]
     defaultLayout $ do
