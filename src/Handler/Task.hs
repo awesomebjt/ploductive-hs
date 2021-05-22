@@ -89,6 +89,7 @@ getTaskByDayR day = do
     let weekdayOfDay = fromJust $ numToDayOfWeek $ third $ toGregorian day
     --let handlerName = "getTaskByDayR" :: Text
     let sql = "SELECT * FROM Task WHERE begin <= '" ++ show day ++ "' and end >= '" ++ show day ++ "' and repeatpattern like '%" ++ [weekdayOfDay] ++ "%'"
+    -- TODO: use the sql query to actually pull 'allTasks'
     allTasks <- runDB $ selectList [TaskBegin <=. day, TaskEnd >=. Just day] [Asc TaskId]
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
