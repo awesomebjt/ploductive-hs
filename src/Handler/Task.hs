@@ -16,8 +16,11 @@ import Data.Time.Calendar ()
 import Data.Time.Calendar.WeekDate ( toWeekDate )
 import Data.Time.Calendar (addDays)
 
-import qualified Database.Esqueleto      as E
-import           Database.Esqueleto      ((^.))
+--import qualified Database.Esqueleto      as E
+--import           Database.Esqueleto      ((^.))
+-- TODO: Finish reading about Esqueleto and rework the db structure so that
+--       repeated days are done by making many db entries for days, not calculating
+--       based on one entry and a date span
 
 getTaskR :: Handler Html
 getTaskR = do
@@ -91,10 +94,7 @@ getTaskByDayR day = do
     let prevDay = addDays (-1) day
     let weekdayOfDay = fromJust $ numToDayOfWeek $ third $ toGregorian day
     --let handlerName = "getTaskByDayR" :: Text
-    let sql = "SELECT ?? FROM Task WHERE begin <= '" ++ show day ++ "' and end >= '" ++ show day ++ "' and repeatpattern like '%" ++ [weekdayOfDay] ++ "%'"
-    -- TODO: use the sql query to actually pull 'allTasks'
     allTasks <- runDB $ selectList [TaskBegin <=. day, TaskEnd >=. Just day] [Asc TaskId]
-    allTasks2 <- runDB $ rawSql sql []
     defaultLayout $ do
         setTitle "Ploductive: Tasks"
         $(widgetFile "tasksbyday")
