@@ -19,9 +19,6 @@ import Data.Time.Calendar (addDays)
 import qualified Database.Esqueleto      as E
 import           Database.Esqueleto      ((^.))
 import           Database.Esqueleto      (rawSql)
--- TODO: Finish reading about Esqueleto and rework the db structure so that
---       repeated days are done by making many db entries for days, not calculating
---       based on one entry and a date span
 
 getTaskR :: Handler Html
 getTaskR = do
@@ -108,7 +105,6 @@ taskForm = renderBootstrap3 (BootstrapHorizontalForm (ColSm 1) (ColSm 1) (ColSm 
     <$> areq textField "Description" Nothing
     <*> areq dayField "Start" Nothing
     <*> aopt dayField "End" Nothing
-    <*> areq textField "RepeatPattern" Nothing
 
 getAllTasks :: DB [Entity Task]
 getAllTasks = selectList [] [Asc TaskId]

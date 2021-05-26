@@ -15,7 +15,6 @@ Task json
     description Text
     begin Day
     end Day Maybe
-    repeatPattern Text
     deriving Show
 DoneTask json
     taskId TaskId Maybe
