@@ -9,3 +9,7 @@ function goToSelectedDay() {
         alert("Invalid date!");
     }
 };
+
+function toggleDone(taskId) {
+    alert(taskId);
+}

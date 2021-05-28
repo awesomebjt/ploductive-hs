@@ -15,7 +15,7 @@
     <tbody>
       $forall task <- allTasks
         <tr>
-          <th scope="col"><input type="checkbox">
+          <th scope="col"><input type="checkbox" onclick="toggleDone(#{show $ id $ entityVal task});">
           <th scope="col">#{taskDescription $ entityVal task}
           <th scope="col">#{show $ taskBegin $ entityVal task}
           <th scope="col">#{showTaskDay $ taskEnd $ entityVal task}
