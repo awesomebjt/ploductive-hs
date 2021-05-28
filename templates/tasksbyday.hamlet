@@ -13,12 +13,14 @@
   <table .table>
     <thead>
       <tr>
+        <th>Done
         <th>Description
         <th>Begin Date
         <th>End Date
     <tbody>
       $forall task <- allTasks
         <tr>
+          <th scope="col"><input type="checkbox">
           <th scope="col">#{taskDescription $ entityVal task}
           <th scope="col">#{show $ taskBegin $ entityVal task}
           <th scope="col">#{showTaskDay $ taskEnd $ entityVal task}
